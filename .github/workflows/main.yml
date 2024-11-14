@@ -8,22 +8,19 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on:ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up MSVC
-      shell: pwsh
-      run: |
-        choco install visualstudio2022buildtools --params "--add Microsoft.VisualStudio.Workload.VCTools"
-        refreshenv
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
 
-    - name: Build C++ code
-      run: |
-        cl /EHsc main.cpp
+    - name: Install dependencies
+      run: npm install
 
-    - name: Run executable
-      run: |
-        ./main.exe
+   - name: Run tests
+      run: npm test
