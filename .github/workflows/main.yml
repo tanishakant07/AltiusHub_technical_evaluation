@@ -1,0 +1,29 @@
+name: C++ Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up MSVC
+      shell: pwsh
+      run: |
+        choco install visualstudio2022buildtools --params "--add Microsoft.VisualStudio.Workload.VCTools"
+        refreshenv
+
+    - name: Build C++ code
+      run: |
+        cl /EHsc main.cpp
+
+    - name: Run executable
+      run: |
+        ./main.exe
