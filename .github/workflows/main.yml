@@ -1,4 +1,4 @@
-name:  CI/CD Pipeline build and test
+name: CI/CD Pipeline build and test
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on:ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
